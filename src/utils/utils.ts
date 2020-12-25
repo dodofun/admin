@@ -16,5 +16,6 @@ export const isAntDesignProOrDev = (): boolean => {
   if (NODE_ENV === 'development') {
     return true;
   }
+
   return isAntDesignPro();
 };

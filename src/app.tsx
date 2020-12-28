@@ -111,3 +111,5 @@ const errorHandler = (error: ResponseError) => {
 export const request: RequestConfig = {
   errorHandler,
 };
+
+console.log('API_HOST', API_HOST);

@@ -3,10 +3,19 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
+import lodash from 'lodash';
+
+import dev from './config.dev';
+import pre from './config.pre';
+import test from './config.test';
+import prod from './config.prod';
 
 const { REACT_APP_ENV } = process.env;
 
-export default defineConfig({
+const config = defineConfig({
+  define: {
+    API_HOST: 'http://api.test.com',
+  },
   hash: true,
   antd: {},
   dva: {
@@ -56,3 +65,36 @@ export default defineConfig({
     includes: ['src/components'],
   },
 });
+
+export default merge();
+
+function merge() {
+  let res: any;
+  if (process.env.NODE_ENV === 'development') {
+    switch (process.env.REACT_APP_ENV) {
+      case 'dev':
+        res = lodash.merge({}, config, dev);
+        break;
+      case 'test':
+        res = lodash.merge({}, config, test);
+        break;
+      case 'pre':
+        res = lodash.merge({}, config, pre);
+        break;
+      default:
+        res = lodash.merge({}, config, dev);
+    }
+  } else {
+    switch (process.env.REACT_APP_ENV) {
+      case 'test':
+        res = lodash.merge({}, config, test);
+        break;
+      case 'pre':
+        res = lodash.merge({}, config, pre);
+        break;
+      default:
+        res = lodash.merge({}, config, prod);
+    }
+  }
+  return res;
+}

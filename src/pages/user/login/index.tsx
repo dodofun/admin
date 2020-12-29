@@ -47,6 +47,7 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginStateType>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
+  // const { initialState, loading, refresh, setInitialState } = useModel('@@initialState');
 
   const intl = useIntl();
 

@@ -25,7 +25,7 @@
     path: '/admin',
     name: 'admin',
     icon: 'crown',
-    access: 'canAdmin',
+    access: 'canAdmin', // 权限控制
     component: './Admin',
     routes: [
       {
@@ -41,6 +41,11 @@
     icon: 'table',
     path: '/list',
     component: './ListTableList',
+    layout: {
+      hideMenu: false,
+      hideNav: false,
+      hideFooter: true,
+    },
   },
   {
     path: '/',

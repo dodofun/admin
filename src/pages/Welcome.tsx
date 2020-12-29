@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Typography } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
+import { Card, Alert, Typography, Button } from 'antd';
+import { useIntl, FormattedMessage, useModel } from 'umi';
 import styles from './Welcome.less';
 
 const CodePreview: React.FC = ({ children }) => (
@@ -13,9 +13,24 @@ const CodePreview: React.FC = ({ children }) => (
 );
 
 export default (): React.ReactNode => {
+  // 第二个参数用于性能优化，当组件只需要消费 model 中的部分参数，而对其他参数的变化并不关心时，可以传入一个函数用于过滤。函数的返回值将取代 model 的返回值，成为 useModel 的最终返回值
+  const counter = useModel('counter', (ret) => ({
+    counter: ret.counter,
+    add: ret.increment,
+    minus: ret.decrement,
+  }));
   const intl = useIntl();
   return (
     <PageContainer>
+      <div style={{ margin: '20px' }}>
+        {counter.counter}
+        <Button type="primary" onClick={() => counter.minus()} style={{ margin: '0 10px' }}>
+          minus
+        </Button>
+        <Button type="primary" onClick={() => counter.add()}>
+          add
+        </Button>
+      </div>
       <Card>
         <Alert
           message={intl.formatMessage({

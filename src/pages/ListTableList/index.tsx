@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, message, Input, Drawer } from 'antd';
 import React, { useState, useRef } from 'react';
-import { useIntl, FormattedMessage } from 'umi';
+import { useIntl, FormattedMessage, useAccess, Access } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -90,6 +90,9 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
+
+  const access = useAccess();
+  console.log('access', access);
 
   /**
    * 国际化配置
@@ -215,6 +218,17 @@ const TableList: React.FC = () => {
 
   return (
     <PageContainer>
+      <div>
+        <Access accessible={access.demo.read} fallback={<div>Can not read foo content.</div>}>
+          Foo content.
+        </Access>
+        <Access accessible={access.demo.update} fallback={<div>Can not update foo.</div>}>
+          Update foo.
+        </Access>
+        <Access accessible={access.demo.delete} fallback={<div>Can not delete foo.</div>}>
+          Delete foo.
+        </Access>
+      </div>
       <ProTable<TableListItem>
         headerTitle={intl.formatMessage({
           id: 'pages.searchTable.title',
@@ -226,15 +240,17 @@ const TableList: React.FC = () => {
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              handleModalVisible(true);
-            }}
-          >
-            <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
-          </Button>,
+          <Access accessible={access.demo.add} fallback={<div></div>}>
+            <Button
+              type="primary"
+              key="primary"
+              onClick={() => {
+                handleModalVisible(true);
+              }}
+            >
+              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+            </Button>
+          </Access>,
         ]}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
         columns={columns}
@@ -307,10 +323,10 @@ const TableList: React.FC = () => {
               ),
             },
           ]}
-          width="m"
+          width="md"
           name="name"
         />
-        <ProFormTextArea width="m" name="desc" />
+        <ProFormTextArea width="md" name="desc" />
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {

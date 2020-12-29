@@ -53,6 +53,11 @@ const authHeaderInterceptor = (url: string, options: RequestOptionsInit) => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const demoResponseInterceptors = (response: Response, options: RequestOptionsInit) => {
+  return response;
+};
+
 const demo1Middleware = async (ctx: Context, next: () => void) => {
   await next();
 };
@@ -64,5 +69,6 @@ const demo2Middleware = async (ctx: Context, next: () => void) => {
 export const request: RequestConfig = {
   errorHandler,
   requestInterceptors: [authHeaderInterceptor],
+  responseInterceptors: [demoResponseInterceptors],
   middlewares: [demo1Middleware, demo2Middleware],
 };

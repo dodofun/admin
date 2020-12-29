@@ -35,11 +35,11 @@
     "tsc": "tsc --noEmit"
   },
   "lint-staged": {
-		"*.{js,jsx,ts,tsx,css,scss,less,md,json}": [
-			"npm run lint:fix",
-			"git add"
-		]
-	},
+    "*.{js,jsx,ts,tsx,css,scss,less,md,json}": [
+      "npm run lint:fix",
+      "git add"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged --allow-empty",
@@ -74,6 +74,8 @@
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.0.2",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@types/classnames": "^2.2.7",
     "@types/express": "^4.17.0",
     "@types/history": "^4.7.2",
@@ -89,6 +91,7 @@
     "@umijs/preset-ant-design-pro": "^1.2.0",
     "@umijs/preset-dumi": "^1.1.0-rc.6",
     "@umijs/preset-react": "^1.7.4",
+    "@umijs/preset-ui": "^2.2.9",
     "@umijs/yorkie": "^2.0.3",
     "carlo": "^0.9.46",
     "cross-env": "^7.0.0",
@@ -107,9 +110,7 @@
     "puppeteer-core": "^5.0.0",
     "stylelint": "^13.0.0",
     "stylelint-config-standard": "^20.0.0",
-    "typescript": "^4.0.3",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0"
+    "typescript": "^4.0.3"
   },
   "engines": {
     "node": ">=10.0.0"

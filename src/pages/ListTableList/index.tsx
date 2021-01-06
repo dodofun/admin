@@ -218,7 +218,7 @@ const TableList: React.FC = () => {
 
   return (
     <PageContainer>
-      <div>
+      {/* <div>
         <Access accessible={access.demo.read} fallback={<div>Can not read foo content.</div>}>
           Foo content.
         </Access>
@@ -228,7 +228,7 @@ const TableList: React.FC = () => {
         <Access accessible={access.demo.delete} fallback={<div>Can not delete foo.</div>}>
           Delete foo.
         </Access>
-      </div>
+      </div> */}
       <ProTable<TableListItem>
         headerTitle={intl.formatMessage({
           id: 'pages.searchTable.title',

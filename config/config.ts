@@ -37,6 +37,7 @@ const config = defineConfig({
   dynamicImport: {
     loading: '@ant-design/pro-layout/es/components/PageLoading',
   },
+  fastRefresh: {},
   targets: {
     ie: 11,
   },
@@ -63,6 +64,58 @@ const config = defineConfig({
   },
   resolve: {
     includes: ['src/components'],
+  },
+  alias: {},
+  cssLoader: {
+    localsConvention: 'camelCase',
+  },
+  cssModulesTypescriptLoader: { mode: 'emit' },
+  devServer: {
+    port: 8888,
+    host: '0.0.0.0',
+  },
+  exportStatic: {},
+  inlineLimit: 10000,
+  polyfill: {
+    imports: ['core-js/stable'],
+  },
+  metas: [
+    {
+      name: 'keywords',
+      content: 'umi, antd,antd-pro,admin',
+    },
+    {
+      name: 'description',
+      content: '🍙 后台管理',
+    },
+  ],
+  externals: {
+    // react: 'window.React',
+    // 'react-dom': 'window.ReactDOM',
+  },
+  scripts: [
+    // 'https://unpkg.com/browse/react@16.12.0/umd/react.production.min.js',
+  ],
+  chainWebpack(memo, { env, webpack, createCSSRule }) {
+    memo.merge({
+      optimization: {
+        splitChunks: {
+          chunks: 'all',
+          minSize: 30000,
+          minChunks: 3,
+          automaticNameDelimiter: '.',
+          cacheGroups: {
+            vendor: {
+              name: 'vendors',
+              test({ resource }: { resource: any }) {
+                return /[\\/]node_modules[\\/]/.test(resource);
+              },
+              priority: 10,
+            },
+          },
+        },
+      },
+    });
   },
 });
 

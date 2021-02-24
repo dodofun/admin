@@ -2,6 +2,7 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Alert, Typography, Button } from 'antd';
 import { useIntl, FormattedMessage, useModel } from 'umi';
+
 import styles from './Welcome.less';
 
 const CodePreview: React.FC = ({ children }) => (

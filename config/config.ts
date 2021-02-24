@@ -86,9 +86,20 @@ const config = defineConfig({
     },
     {
       name: 'description',
-      content: '🍙 后台管理',
+      content: '后台管理',
     },
   ],
+  // qiankun: {
+  //   master: {
+  //     // 注册子应用信息
+  //     apps: [
+  //       {
+  //         name: 'app1', // 唯一 id
+  //         entry: '//localhost:8889', // html entry
+  //       },
+  //     ],
+  //   },
+  // },
   externals: {
     // react: 'window.React',
     // 'react-dom': 'window.ReactDOM',
